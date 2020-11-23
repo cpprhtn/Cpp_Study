@@ -78,6 +78,25 @@ int main()
     return 0;
 }
 
+4. 입출력 추가
+```C++
+#include <stdio.h>
+#include <iostream>
 
+int main()
+{
+    int a = 10;
+    char b = "C";
+    float c = 3.14;
+
+    //C ver
+    printf("%d %c %f",a, b, c);
+
+    //C++ ver
+    cout << a << b << c << endl;
+    
+    return 0;
+}
+```
 
 구구절절 설명을 했다만, 얼른 본격적으로 넘어가보도록 합시다 :)

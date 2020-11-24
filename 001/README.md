@@ -1,5 +1,5 @@
 # namespace
-반갑습니다. C++ 첫 강의입니다.
+반갑습니다. Cpprhtn입니다.
 
 ```C++
 #include<iostream>

@@ -20,7 +20,7 @@ int main()
 int main() //시작함수(진입점)
 {
 
-    std::cout<< "Hello World!\n" << std::endl;
+    std::cout << "Hello World!\n" << std::endl;
 
     //std::cout = 출력함수
     //std::endl = 개행함수 '\n'
@@ -42,7 +42,7 @@ std는 C++ 표준 라이브러리의 모든 함수, 객체 등이 정의된 name
 int main()
 {
     _class_1::cpprhtn(); //1반의 cpprhtn
-    _class_2_::cpprhtn(); //2반의 cpprhtn
+    _class_2::cpprhtn(); //2반의 cpprhtn
     //서로 다른사람을 호출한 것
 }
 ```
@@ -59,7 +59,7 @@ using namespace std; 라는 문장을 통해서 std를 생략할 수 있습니�
 using namespace std;
 int main() 
 {
-    cout <<"Hello, World!!"<< endl;
+    cout << "Hello, World!!"<< endl;
 }
 ```
 

@@ -98,7 +98,6 @@ void vecotr_add(unsigned size, const double v1[], const double v2[], double s[])
 {
 for (unsigned i=0; i < size; ++i)
 s[i] = v1[i] + v2[i];
-<font face="Consolas, Courier New, monospace">}</font>
 }
 int main(int argc, char *argv[])
 {

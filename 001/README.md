@@ -20,7 +20,7 @@ int main()
 int main() //시작함수(진입점)
 {
 
-    std::cout<<"Hello World!\n") << std::endl;
+    std::cout<< "Hello World!\n" << std::endl;
 
     //std::cout = 출력함수
     //std::endl = 개행함수 '\n'

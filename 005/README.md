@@ -71,3 +71,46 @@ int main(){
     return 0;
 }
 ```
+
+
+
+C에서처럼 C++에서도 `getline`을 이용하여 한줄 전체를 입력받을 수 있습니다.
+```C++
+#include <iostream>
+#include <string>
+
+int main(){
+
+    std::string str;
+
+    std::cout << "문자열을 입력하세요: ";
+    std::getline(std::cin, str);
+    std::cout << str << std::endl;
+
+return 0;
+}
+```
+>> 문자열을 입력하세요: I love cpp
+>> I love cpp
+
+
+마지막으로는 문자열 길이를 확인해보도록 하겠습니다.
+
+```C++
+#include <iostream>
+#include <string>
+
+int main(){
+
+    std::string str;
+
+    std::cout << "문자열을 입력하세요: ";
+    std::getline(cin, str);
+    std::cout << str << std::endl;
+    std::cout << "문자열 길이: " << str.length() << std::endl;
+
+    return 0;
+}
+```
+> 문자열을 입력하세요: I love cpp
+> 문자열 길이: 10

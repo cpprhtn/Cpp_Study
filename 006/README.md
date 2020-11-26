@@ -75,16 +75,17 @@ public:
 class S_Class{
 public:
     char c;
-}
+};
+
 int main(){
 
     F_Class A;
     S_Class B;
     A.i = 1;
     A.d = 3.14;
-    B.c = 'k'
+    B.c = 'k';
 
-    cout << "object A: " << A.n << ", " << A.f << endl;
+    cout << "object A: " << A.i << ", " << A.d << endl;
     cout << "object B: " << B.c << endl;
     return 0;
 }
@@ -162,9 +163,9 @@ int main(){
     sum_B = B.sum();
 
     cout << "A의 합: " << sum_A << endl;
-    sum_A.print()
+    sum_A.print();
     cout << "B의 합: " << sum_B << endl;
-    sum_B.print()
+    sum_B.print();
 
     return 0;
 }
@@ -173,3 +174,46 @@ int main(){
 > x: 1, y: 2
 > B의 합: -5
 > x: 10, y: -15
+
+
+```C++
+#include <iostream>
+using namespace std;
+
+class F_Class{
+public:
+    int x, y;
+    int sum();
+    void print();
+};
+
+int main(){
+
+    F_Class A, B;
+    A.x = 1;
+    A.y = 2;
+    B.x = 10;
+    B.y = -15;
+
+    int sum_A, sum_B;
+    sum_A = A.sum();
+    sum_B = B.sum();
+
+    cout << "A의 합: " << sum_A << endl;
+    sum_A.print();
+    cout << "B의 합: " << sum_B << endl;
+    sum_B.print();
+
+    return 0;
+}
+
+int F_Class::sum()
+{
+    return x + y;
+}
+
+void F_Class::print()
+{
+    cout << "x: " << x << ", y: " << y << endl;
+}
+```

@@ -1,5 +1,5 @@
 # 입출력
-반갑습니다. Cppbhtn입니다.
+반갑습니다. Cpprhtn입니다.
 
 C++형태의 입출력은 iostream 헤더를 불러와야하며, 이 헤더에는 std라는 namespace가 있습니다.   
 (namespace는 다음강에서 다룹니다.)

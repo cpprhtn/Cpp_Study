@@ -1,5 +1,5 @@
 # string
-반갑습니다. Cppbhtn입니다.
+반갑습니다. Cpprhtn입니다.
 
 이번에는 string에 대해 알아보겠습니다.
 

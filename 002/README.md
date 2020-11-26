@@ -1,111 +1,71 @@
-# pointer
+# namespace
 반갑습니다. Cpprhtn입니다.
 
-사실 포인터는 C++로 넘어오면서 레퍼런스와 혼동하여 쓰이기 쉽습니다.
-
-그렇기에 둘의 차이를 확실하게 잡고 갈 생각입니다.
-
-
-
-- 포인터 (Pointer)
-포인터는 어떠한 값을 저장하는 게 아닌 메모리 주소를 저장하는 변수다.
-
-### 포인터 선언
-
-포인터 변수는 일반 변수처럼 선언되며, 자료형과 변수 이름 사이에 별표(*)가 붙는다.
-> 자료형* 포인터 이름;
 ```C++
-int* iPtr; // int형 포인터 
-double* dPtr; // double형 포인터 
-int* iPtr1, *iPtr2; // int형 두 개의 포인터 선언
-//여러 포인터 변수를 선언하는 경우 별표가 각 변수에 포함되어야 함.
-int* iPtr3, iPtr4;
-//ptr3은 int형 포인터, ptr4는 단순한 int
-```
-
-### 포인터에 값 할당
-포인터는 메모리 주소만 저장하므로, 포인터에 값을 할당할 때 그 값은 주소여야 한다. 
-포인터로 하는 가장 흔한 작업은 다른 변수의 주소를 저장하는 것이다.
-
-변수의 주소를 얻으려면 주소 연산자(&)를 사용한다.
-> 포인터 = &변수;
-
-```C++
-int value = 5; int *ptr = &value; // 변수값의 주소로 ptr 초기화
-```
-ptr은 값으로 value 변수 값의 주소를 가지고 있다. 
-그러므로 ptr을 value 변수를 '가리키는' 값이라고 할 수 있다.
-
-```C++
-#include <iostream> 
+#include<iostream>
 int main() 
 { 
-    int value = 5; 
-    int *ptr = &value; // 변수 값의 주소로 ptr 초기화 
-
-    std::cout << &value << '\n'; // value 변수의 주소 출력 
-    std::cout << ptr << '\n'; // ptr 변수 값 출력 
-
-    return 0; 
+    std::cout <<"Hello, World!!"<< std::endl;
 }
 ```
 
-포인터 변수의 자료형은 가리키는 변수의 자료형과 같아야 한다.
+일반적인 IDE에서 새 파일을 만들면 위와 같은 코드를 볼 수 있을 것입니다.
+
+
+위 코드를 먼저 분석해봅시다.
+
 ```C++
-int iValue = 5; 
-double dValue = 7.0; 
-int *iPtr = &iValue; // O 
-double *dPtr = &dValue; // O 
-iPtr = &dValue; // X
-dPtr = &iValue; // X
+#include <iostream> // iostream은 입출력을 위한 헤더파일입니다.
+
+int main() //시작함수(진입점)
+{
+
+    std::cout << "Hello World!\n" << std::endl;
+
+    //std::cout = 출력함수
+    //std::endl = 개행함수 '\n'
+}
 ```
 
-다음 사항도 올바르지 않다.
+여기에 각 함수앞에 std:: 형태가 붙어있는것을 볼 수 있습니다.
+std는 C++ 표준 라이브러리의 모든 함수, 객체 등이 정의된 namespace 입니다.
+
+다른사람의 코드를 가져와 같이 사용하다보면 겹치는 함수가 많이 생기는데
+이를 구분하기 위해 namespace라는 이름공간(직역)을 만든것입니다.
+
+예를 들면 동명이인과 같습니다.
+한 학교내에 이름이 같을수록 앞에 추가적인 특징등을 붙여 쓰는 경우가 많습니다.
+이를 코드화 하면 아래와 같습니다.
+
 ```C++
-int *ptr = 5;
+#include<iostream>
+int main()
+{
+    _class_1::cpprhtn(); //1반의 cpprhtn
+    _class_2::cpprhtn(); //2반의 cpprhtn
+    //서로 다른사람을 호출한 것
+}
 ```
-포인터가 주소만 보유할 수 있고 정수 리터럴 5에는 메모리 주소가 없기 때문이다. 
-위 코드를 시도하면 컴파일러는 정수를 정수 포인터로 변환할 수 없으므로 오류가 발생한다.
+위 처럼 구별을 위해 `namespace`를 사용합니다.
 
 
-C++에서는 포인터에 리터럴 메모리 주소를 직접 할당할 수 없다.
+## using namespace std
+일반적으로 혼자 코드를 짜서 함수가 겹치지 않는 상황일때도 std를 붙여주다보면 std를 수십개, 수백개를 써 주어야 하는 상황이 생길 수도 있습니다.
+using namespace std; 라는 문장을 통해서 std를 생략할 수 있습니다.
+아래와 같이 사용합니다.
+
 ```C++
-double *dPtr = 0x0012FF7C; // X
-```
-
-
-
-어떤 것을 가리키는 포인터 변수가 있다면, 역참조 연산자 *를 통해 포인터가 가리키는 주소의 값을 알 수 있다.
-```C++
-int value = 5; 
-std::cout << &value; // value의 주소를 출력
-std::cout << value; // value의 값을 출력
-
-int *ptr = &value; // ptr은 value를 가리킴 
-std::cout << ptr; // ptr이 가리키는 주소를 출력 (&value) 
-std::cout << *ptr; // ptr을 역참조함. ptr이 가리키는 주소의 값을 출력 (value)
-```
-
-할당한 후에 포인터 값을 다른 값으로 재할당할 수 있다.
-```C++
-int value1 = 5; 
-int value2 = 7; 
-int *ptr; 
-
-ptr = &value1; // value1의 주소를 가짐
-std::cout << *ptr; // 5 출력
-
-ptr = &value2; // value2의 주소를 가짐
-std::cout << *ptr; // 7 출력
+#include<iostream>
+using namespace std;
+int main() 
+{
+    cout << "Hello, World!!"<< endl;
+}
 ```
 
-ptr은 &value 값과 같다.
-*ptr은 value 값과 같다.
 
-*ptr은 value와 같게 취급되므로 마치 변수값인 것처럼 갓을 할당할 수 있다.
-```C++
-int value = 5; 
-int *ptr = &value; 
-*ptr = 7; 
-std::cout << value; // 7 출력
-```
+
+C++ 표준 라이브러리는 엄청 많은 함수들이 존재하고 있습니다. 자칫 잘못하다가 이름을 겹치게 사용한다면, 고치느라 시간을 많이 잡아먹을 것입니다. 
+게다가 std 에는 매번 수 많은 함수들이 새롭게 추가되고 있기 때문에 C++ 버전이 바뀔 때 마다 기존에 잘 작동하던 코드가 이름 충돌로 인해 동작하지 않게되는 문제가 발생할 수 있습니다.
+
+따라서 using namespace std; 보다, std:: 를 직접 앞에 붙여서 std 의 이름공간의 함수이다 라고 명시해주는 것이 좋습니다. 

@@ -1,210 +1,111 @@
-# reference
-반갑습니다. Cppbhtn입니다.
+# pointer
+반갑습니다. Cpprhtn입니다.
 
-C++에서 등장했으며, 포인터와 비슷하게 생긴 `레퍼런스`라는 것을 알아봅시다.
+사실 포인터는 C++로 넘어오면서 레퍼런스와 혼동하여 쓰이기 쉽습니다.
 
-이것 역시 포인터처럼 주소값을 가지는데, 유사하면서도 많은 차이점이 있다.
-
-### 레퍼런스 선언
-> &변수명 = 다른변수
+그렇기에 둘의 차이를 확실하게 잡고 갈 생각입니다.
 
 
-반드시 처음에 초기화해야 하며(다른 변수를 가리키게 함)
-그 이후는 자신이 가리키는 변수를 바꿀 수 없다.
 
-NULL값으로 레퍼런스를 초기화할 수 없다.
+- 포인터 (Pointer)
+포인터는 어떠한 값을 저장하는 게 아닌 메모리 주소를 저장하는 변수다.
 
-레퍼런스가 어떤 변수에 새로운 이름을 부여한다고 생각하면 된다.
+### 포인터 선언
+
+포인터 변수는 일반 변수처럼 선언되며, 자료형과 변수 이름 사이에 별표(*)가 붙는다.
+> 자료형* 포인터 이름;
+```C++
+int* iPtr; // int형 포인터 
+double* dPtr; // double형 포인터 
+int* iPtr1, *iPtr2; // int형 두 개의 포인터 선언
+//여러 포인터 변수를 선언하는 경우 별표가 각 변수에 포함되어야 함.
+int* iPtr3, iPtr4;
+//ptr3은 int형 포인터, ptr4는 단순한 int
+```
+
+### 포인터에 값 할당
+포인터는 메모리 주소만 저장하므로, 포인터에 값을 할당할 때 그 값은 주소여야 한다. 
+포인터로 하는 가장 흔한 작업은 다른 변수의 주소를 저장하는 것이다.
+
+변수의 주소를 얻으려면 주소 연산자(&)를 사용한다.
+> 포인터 = &변수;
 
 ```C++
-#include <cstdio>
-
-int main()
-{   
-    int a = 1;
-    int &b = a;
-
-    printf("%d %d\n", a, b); // 1 1
-    printf("%p %p\n", &a, &b); // 006AD1F8 006AD1F8
-
-    int c(3);
-    &b = c; // Error
-    int &d = '\0' // Error
-
-    return 0;
-}
+int value = 5; int *ptr = &value; // 변수값의 주소로 ptr 초기화
 ```
-위에선 a라는 변수에 b이라는 새로운 이름을 부여한 것을 볼 수 있다.
-
-
-### 레퍼런스와 포인터의 차이점
-
-레퍼런스는 반드시 처음에 초기화해야 하며, 다시는 가리키는 주소를 못 바꾸고, 배열을 만들 수 없다.
-
-포인터는 값 자체에 접근하려면 *를 붙여야 하지만 레퍼런스는 그러지 않아도 된다.
-
-
-
-### 예상해보기
-아래 코드의 결과를 예상해봅시다.
-```C++
-#include <cstdio>
-
-int main()
-{
-    int n = 1;
-    int &m = n;
-
-    printf("%d %d\n", n, m);
-
-    n = 7;
-    printf("%d %d\n", n, m);
-
-    m = 9;
-    printf("%d %d\n", n, m);
-
-    return 0;
-}
-```
-
-
-아래 코드를 보면서 C언어의 포인터보다 레퍼런스를 사용하면 가독성이 높아지는 것을 알 수 있습니다.
-```C
-#include <stdio.h>
-
-void swap(int *p, int *q)
-{
-    int temp;
-    temp = *p;
-    *p = *q;
-    *q = temp;
-}
-
-int main()
-{
-    int x = 1, y = 2;
-
-    swap(&x, &y);
-    printf("%d %d\n",x, y);
-
-    return 0;
-}
-```
+ptr은 값으로 value 변수 값의 주소를 가지고 있다. 
+그러므로 ptr을 value 변수를 '가리키는' 값이라고 할 수 있다.
 
 ```C++
-#include <cstdio>
+#include <iostream> 
+int main() 
+{ 
+    int value = 5; 
+    int *ptr = &value; // 변수 값의 주소로 ptr 초기화 
 
-void swap(int &p, int &q)
-{
-    int temp;
-    temp = p;
-    p = q;
-    q = temp;
-}
+    std::cout << &value << '\n'; // value 변수의 주소 출력 
+    std::cout << ptr << '\n'; // ptr 변수 값 출력 
 
-int main()
-{
-    int x(1), y(2);
-
-    swap(x, y);
-    printf("%d %d\n",x, y);
-
-    return 0;
+    return 0; 
 }
 ```
 
-
-아래와 같이 400byte 크기의 구조체가 있다고 합시다.
-이때 sum()이라는 함수에서 매개변수로 이 구조체를 호출한다면
-호출할때마다 400byte크기의 값이 복사될 것이다.
-
-이 문제를 해결하기 위해서 포인터를 사용한다면 두번째 예제처럼 코드를 바꿀 수 있습니다.
-이때는 매개변수만 포인터로 바뀌었지만, 매개변수의 주소값만 넘겨주므로 포인터의 크기인 4byte만 사용하게 됩니다.
-
-세번째 코드에서는 레퍼런스를 사용하여 구현한 것입니다.
-레퍼런스 역시 4byte를 사용하지만, 포인터보다 가독성이 더 높은 것을 알 수 있습니다.
-
-```C
-#include <stdio.h>
-
-typedef struct arr100
-{
-    int arr[100];
-}Arr100;
-
-int sum(Arr100 temp)
-{
-    int sum = 0;
-    for (int i = 0; i < 100; i++)
-    {
-        sum += temp.arr[i];
-    }
-
-    return sum;
-}
-
-int main()
-{
-    Arr A;
-    int Sum = sum(A);
-
-    return 0;
-}
-```
-
-
-```C
-#include <stdio.h>
-
-typedef struct arr100
-{
-    int arr[100];
-}Arr100;
-
-int sum(Arr100 *temp)
-{
-    int sum = 0;
-    for (int i = 0; i < 100; i++)
-    {
-        sum += temp -> arr[i];
-    }
-
-    return sum;
-}
-
-int main()
-{
-    Arr A;
-    int Sum = sum(&A);
-
-    return 0;
-}
-```
-
+포인터 변수의 자료형은 가리키는 변수의 자료형과 같아야 한다.
 ```C++
-#include <cstdio>
+int iValue = 5; 
+double dValue = 7.0; 
+int *iPtr = &iValue; // O 
+double *dPtr = &dValue; // O 
+iPtr = &dValue; // X
+dPtr = &iValue; // X
+```
 
-typedef struct arr100
-{
-    int arr[100];
-}Arr100;
+다음 사항도 올바르지 않다.
+```C++
+int *ptr = 5;
+```
+포인터가 주소만 보유할 수 있고 정수 리터럴 5에는 메모리 주소가 없기 때문이다. 
+위 코드를 시도하면 컴파일러는 정수를 정수 포인터로 변환할 수 없으므로 오류가 발생한다.
 
-int sum(Arr100 &temp)
-{
-    int sum = 0;
-    for (int i = 0; i < 100; i++)
-    {
-        sum += temp.arr[i];
-    }
 
-    return sum;
-}
+C++에서는 포인터에 리터럴 메모리 주소를 직접 할당할 수 없다.
+```C++
+double *dPtr = 0x0012FF7C; // X
+```
 
-int main()
-{
-    Arr A;
-    int Sum = sum(A);
 
-    return 0;
-}
+
+어떤 것을 가리키는 포인터 변수가 있다면, 역참조 연산자 *를 통해 포인터가 가리키는 주소의 값을 알 수 있다.
+```C++
+int value = 5; 
+std::cout << &value; // value의 주소를 출력
+std::cout << value; // value의 값을 출력
+
+int *ptr = &value; // ptr은 value를 가리킴 
+std::cout << ptr; // ptr이 가리키는 주소를 출력 (&value) 
+std::cout << *ptr; // ptr을 역참조함. ptr이 가리키는 주소의 값을 출력 (value)
+```
+
+할당한 후에 포인터 값을 다른 값으로 재할당할 수 있다.
+```C++
+int value1 = 5; 
+int value2 = 7; 
+int *ptr; 
+
+ptr = &value1; // value1의 주소를 가짐
+std::cout << *ptr; // 5 출력
+
+ptr = &value2; // value2의 주소를 가짐
+std::cout << *ptr; // 7 출력
+```
+
+ptr은 &value 값과 같다.
+*ptr은 value 값과 같다.
+
+*ptr은 value와 같게 취급되므로 마치 변수값인 것처럼 갓을 할당할 수 있다.
+```C++
+int value = 5; 
+int *ptr = &value; 
+*ptr = 7; 
+std::cout << value; // 7 출력
 ```

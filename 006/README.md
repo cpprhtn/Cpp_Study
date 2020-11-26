@@ -163,9 +163,9 @@ int main(){
     sum_B = B.sum();
 
     cout << "A의 합: " << sum_A << endl;
-    sum_A.print();
+    A.print();
     cout << "B의 합: " << sum_B << endl;
-    sum_B.print();
+    B.print();
 
     return 0;
 }
@@ -203,9 +203,9 @@ int main(){
     sum_B = B.sum();
 
     cout << "A의 합: " << sum_A << endl;
-    sum_A.print();
+    A.print();
     cout << "B의 합: " << sum_B << endl;
-    sum_B.print();
+    B.print();
 
     return 0;
 }

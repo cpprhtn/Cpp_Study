@@ -45,29 +45,6 @@ int main()
 
 
 
-### 예상해보기
-아래 코드의 결과를 예상해봅시다.
-```C++
-#include <cstdio>
-
-int main()
-{
-    int n = 1;
-    int &m = n;
-
-    printf("%d %d\n", n, m);
-
-    n = 7;
-    printf("%d %d\n", n, m);
-
-    m = 9;
-    printf("%d %d\n", n, m);
-
-    return 0;
-}
-```
-
-
 아래 코드를 보면서 C언어의 포인터보다 레퍼런스를 사용하면 가독성이 높아지는 것을 알 수 있습니다.
 ```C
 #include <stdio.h>
@@ -204,6 +181,30 @@ int main()
 {
     Arr A;
     int Sum = sum(A);
+
+    return 0;
+}
+```
+
+
+
+### 예상해보기
+아래 코드의 결과를 예상해봅시다.
+```C++
+#include <cstdio>
+
+int main()
+{
+    int n = 1;
+    int &m = n;
+
+    printf("%d %d\n", n, m);
+
+    n = 7;
+    printf("%d %d\n", n, m);
+
+    m = 9;
+    printf("%d %d\n", n, m);
 
     return 0;
 }

@@ -28,6 +28,7 @@ int main(){
 }
 ```
 > 문자열을 입력하세요: cpprhtn
+
 > 입력한 문자열은 cpprhtn입니다.
 
 위와같이 출력됨을 볼 수 있습니다.
@@ -51,6 +52,7 @@ int main(){
 }
 ```
 > 단어 2개를 입력하세요: cpp rhtn
+
 > 합쳐진 단어는 cpprhtn입니다.
 
 위처럼 string에서는 + 연산자로 문자열을 합칠 수 있습니다.
@@ -90,8 +92,9 @@ int main(){
 return 0;
 }
 ```
->> 문자열을 입력하세요: I love cpp
->> I love cpp
+> 문자열을 입력하세요: I love cpp
+
+> I love cpp
 
 
 마지막으로는 문자열 길이를 확인해보도록 하겠습니다.
@@ -113,4 +116,5 @@ int main(){
 }
 ```
 > 문자열을 입력하세요: I love cpp
+
 > 문자열 길이: 10

@@ -10,3 +10,4 @@ C언어의 기본적인 내용을 안다는 전제하에 강좌글을 쓸 예정
 |003|[pointer](./003/README.md)|pointer에 대한 개념|
 |004|[reference](./004/README.md)|reference에 대한 개념|
 |005|[string](./005/README.md)|string에 대한 개념|
+|006|[class](./006/README.md)|class에 대한 개념|

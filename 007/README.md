@@ -101,3 +101,67 @@ class의 private는 C++ 언어에서 매우 중요한 요소입니다.
 이를 캡슐화라고도 부릅니다.
 
 이러한 은닉성을 지키기 위해서 public대신 private를 사용한다고 볼 수 있습니다.
+
+아래는 배열을 역순으로 정렬(리버스) 해주는 코드를 짠 것입니다.
+```C++
+#include <iostream>
+#define MAX 10
+using namespace std;
+
+class Array10{
+public:
+    void set_arr(int*);
+    void reverse();
+    int get(int);
+private:
+    int arr[MAX];
+    void swap(int&, int&);
+};
+
+int main()
+{
+    Array10 A;
+    int temp_arr[10] = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
+
+    A.set_arr(temp_arr);
+    for(int i=0; i<MAX; i++)
+        cout << A.get(i) << " ";
+        
+    cout << endl;
+
+    A.reverse();
+    for(int i=0; i<MAX; i++)
+        cout << A.get(i) << " ";
+
+    cout << endl;
+
+    return 0;
+}
+
+void Array10::set_arr(int *temp){
+    for(int i=0; i<MAX; i++)
+        arr[i] = temp[i];
+}
+
+void Array10::reverse(){
+    for(int i=0; i<MAX/2; i++)
+        swap(arr[i], arr[MAX-i-1]);
+}
+
+int Array10::get(int n){
+    return arr[n];
+}
+
+void Array10::swap(int& a, int& b){ //레퍼런스 이용
+    int temp = a;
+    a = b;
+    b = temp;
+}
+```
+
+reverse() 함수 중에 private 멤버 함수인 swap() 함수가 쓰였습니다.
+
+여기서 우리는 reverse() 함수가 뭔지는 알고, 사용은 하지만
+그 과정에 쓰인 함수 swap() 에 대해서는 알 필요가 없어집니다.
+
+그래서 은닉성에 따라 이 함수를 private으로 숨긴 것입니다.

@@ -1,18 +1,47 @@
 # class
 반갑습니다. Cpprhtn입니다.
 
-클래스 내부의 public, private, friend 중에 이번에는 private도 함께 사용해 보겠습니다.
+이번에는 class에 대해 알아보겠습니다.
 
-private, 개인적인 의미로써, 외부에서의 접근이 제한됩니다.
+0강에서 잠시 언급은 했으나 이제부터 조금더 자세히 알아봅시다.
 
-아래 코드를 보면서 private도 이해해봅시다.
+구조체를 만들듯이 사용하면 되지만, public, private, friend등의 추가적인 선언이 필요합니다.
+
+여기서 public은 공공의, 즉 외부에서 자유롭게 접근가능함을 의미합니다.
+
+아래의 코드를 보면서 익혀봅시다.
 
 ```C++
 #include <iostream>
 using namespace std; 
 
 class New_Class{  
-private:
+public:
+    int i;
+    double d;
+};
+
+int main(){
+
+    New_Class A; //object
+    A.i = 1;
+    A.d = 3.14;
+
+    return 0;
+}
+```
+구조체와 거의 비슷하다고 볼 수 있습니다.
+여기서 클래스 자료형을 가진 변수를 object라고 부릅니다.
+
+
+구조체와 마찬가지로, 같은 클래스를 자료형으로 취하는 서로 다른 오브젝트는 멤버 변수의 값이 독립적으로 존재할 수 있습니다.
+
+```C++
+#include <iostream>
+using namespace std; 
+
+class New_Class{  
+public:
     int i;
     double d;
 };
@@ -20,150 +49,182 @@ private:
 int main(){
 
     New_Class A, B; //object
-
-    A.i = 1; //Error
-    A.d = 3.14; //Error
-    B.i = 2; //Error
-    B.d = 6.28; //Error
+    A.i = 1;
+    A.d = 3.14;
+    B.i = 2;
+    B.d = 6.28;
 
     cout << "object A: " << A.n << ", " << A.f << endl;
     cout << "object B: " << B.n << ", " << B.f << endl;
     return 0;
 }
 ```
-바로 이전 6강의 첫번째 코드를 가져와보았는데, class부분에서 public 대신 private가 선언된 것을 볼 수 있습니다.
+> object A: 1, 3.14
 
-그러나 이 코드를 실행해보면 멤버 변수에 접근하는 부분에서 에러가 뜹니다.
+> object B: 2, 6.28
 
-private 멤버 변수에 바로 접근을 할 수 없기 때문에 멤버 함수를 통해 접근할 필요가 있습니다.
 
+이번에는 여러개의 클래스를 만들어봅시다.
 ```C++
 #include <iostream>
 using namespace std; 
 
-class New_Class{  
-private:
+class F_Class{
+public:
     int i;
     double d;
+};
 
+class S_Class{
 public:
-    void set_i(int);
-    void set_d(double);
-    int get_i();
-    int get_d();
+    char c;
 };
 
 int main(){
 
-    New_Class A, B; //object
+    F_Class A;
+    S_Class B;
+    A.i = 1;
+    A.d = 3.14;
+    B.c = 'k';
 
-    A.set_i(1);
-    A.set_d(3.14);
-    B.set_i(2);
-    B.set_d(6.28);
-
-    cout << "A.i: " << A.get_i() << endl;
-    cout << "B.d: " << B.get_d() << endl;
-
+    cout << "object A: " << A.i << ", " << A.d << endl;
+    cout << "object B: " << B.c << endl;
     return 0;
 }
-
-void New_Class::set_i(int x){
-    i = x;
-}
-
-void New_Class::set_d(double y){
-    d = y;
-}
-
-int New_Class::get_i(){
-    return i;
-}
-
-int New_Class::get_d(){
-    return d;
-}
 ```
-> A.i: 1
+> object A: 1, 3.14
 
-> B.d: 6
+> object B: k
 
-### 왜 private를 사용하는가
 
-class의 private는 C++ 언어에서 매우 중요한 요소입니다.
-
-객체 지향 언어의 특성중 하나인 은닉성에 큰 영향을 주기 때문입니다.
-
-여기서 말하는 은닉성은 사용자가 프로그램을 사용하면서 필요한 최소한의 정보만 제공하고,
-
-그러한 기능이 실행되는 과정이나 절차는 최대한 가려서 사용자가 알지 못하게 한다는 것입니다.
-
-이를 캡슐화라고도 부릅니다.
-
-이러한 은닉성을 지키기 위해서 public대신 private를 사용한다고 볼 수 있습니다.
-
-아래는 배열을 역순으로 정렬(리버스) 해주는 코드를 짠 것입니다.
+이제는 중요한 개념중 하나인 멤버 함수에 대해서 알아봅시다.
+멤버 함수는 클래스안에서 함수를 만드는 형태인데, 멤버 변수를 불러오듯이 멤버 함수도 불러오면 됩니다.
+아래의 코드는 두 수의 합을 구하는 멤버 함수를 포함한 것입니다.
 ```C++
 #include <iostream>
-#define MAX 10
 using namespace std;
 
-class Array10{
+class F_Class{
 public:
-    void set_arr(int*);
-    void reverse();
-    int get(int);
-private:
-    int arr[MAX];
-    void swap(int&, int&);
+    int x, y;
+    int sum()
+    {
+    return x+y;
+    }
 };
 
-int main()
-{
-    Array10 A;
-    int temp_arr[10] = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
+int main(){
 
-    A.set_arr(temp_arr);
-    for(int i=0; i<MAX; i++)
-        cout << A.get(i) << " ";
-        
-    cout << endl;
+    F_Class A, B;
+    A.x = 1;
+    A.y = 2;
+    B.x = 10;
+    B.y = -15;
 
-    A.reverse();
-    for(int i=0; i<MAX; i++)
-        cout << A.get(i) << " ";
+    int sum_A, sum_B;
+    sum_A = A.sum();
+    sum_B = B.sum();
 
-    cout << endl;
+    cout << "A의 합: " << sum_A << endl;
+    cout << "B의 합: " << sum_B << endl;
+
+    return 0;
+}
+```
+> A의 합: 3
+
+> B의 합: -5
+
+
+이번에는 멤버 함수를 더 만들어 보겠습니다.
+```C++
+#include <iostream>
+using namespace std;
+
+class F_Class{
+public:
+    int x, y;
+    int sum()
+    {
+    return x+y;
+    }
+    void print()
+    {
+        cout << "x: " << x << ", y: " << y << endl;
+    }
+};
+
+int main(){
+
+    F_Class A, B;
+    A.x = 1;
+    A.y = 2;
+    B.x = 10;
+    B.y = -15;
+
+    int sum_A, sum_B;
+    sum_A = A.sum();
+    sum_B = B.sum();
+
+    cout << "A의 합: " << sum_A << endl;
+    A.print();
+    cout << "B의 합: " << sum_B << endl;
+    B.print();
+
+    return 0;
+}
+```
+> A의 합: 3
+
+> x: 1, y: 2
+
+> B의 합: -5
+
+> x: 10, y: -15
+
+
+
+선언은 클래스 안에 하고, 정의는 역시 가장 바깥쪽 지역에 합니다.
+이때 일반 함수와 다른 점은, 멤버 함수임을 표시하기 위해 함수명 바로 앞에 "클래스명::"을 붙여야 합니다.
+```C++
+#include <iostream>
+using namespace std;
+
+class F_Class{
+public:
+    int x, y;
+    int sum();
+    void print();
+};
+
+int main(){
+
+    F_Class A, B;
+    A.x = 1;
+    A.y = 2;
+    B.x = 10;
+    B.y = -15;
+
+    int sum_A, sum_B;
+    sum_A = A.sum();
+    sum_B = B.sum();
+
+    cout << "A의 합: " << sum_A << endl;
+    A.print();
+    cout << "B의 합: " << sum_B << endl;
+    B.print();
 
     return 0;
 }
 
-void Array10::set_arr(int *temp){
-    for(int i=0; i<MAX; i++)
-        arr[i] = temp[i];
+int F_Class::sum()
+{
+    return x + y;
 }
 
-void Array10::reverse(){
-    for(int i=0; i<MAX/2; i++)
-        swap(arr[i], arr[MAX-i-1]);
-}
-
-int Array10::get(int n){
-    return arr[n];
-}
-
-void Array10::swap(int& a, int& b){ //레퍼런스 이용
-    int temp = a;
-    a = b;
-    b = temp;
+void F_Class::print()
+{
+    cout << "x: " << x << ", y: " << y << endl;
 }
 ```
-
-reverse() 함수 중에 private 멤버 함수인 swap() 함수가 쓰였습니다.
-
-여기서 우리는 reverse() 함수가 뭔지는 알고, 사용은 하지만
-그 과정에 쓰인 함수 swap() 에 대해서는 알 필요가 없어집니다.
-
-그래서 은닉성에 따라 이 함수를 private으로 숨긴 것입니다.
-
-다음강에서는 좀더 전문적인 소스 분할에 대해 다루겠습니다.

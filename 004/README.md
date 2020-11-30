@@ -1,211 +1,86 @@
-# reference
+# pointer
 반갑습니다. Cpprhtn입니다.
 
-C++에서 등장했으며, 포인터와 비슷하게 생긴 `레퍼런스`라는 것을 알아봅시다.
+이번에는 `스마트 포인터`라는 것에 대해서 설명할 예정입니다.
 
-이것 역시 포인터처럼 주소값을 가지는데, 유사하면서도 많은 차이점이 있다.
+기존의 C언어에서 할당과 해제 할때는 많은 오류와 데이터를 잡아먹는 상황이 자주 발생합니다.
 
-### 레퍼런스 선언
-> &변수명 = 다른변수
+이런 포인터 관련 오류를 최소화 하는 방법은 크게 3가지가 있습니다.
 
+1. 표준 컨테이너 사용
+표준 라이브러리나 유효성이 검증된 라이브러리를 사용하는 것입니다.
+표준 라이브러리의 std::vector는 크기 조정 및 범위 검사를 포함한 동적 배열의 모든 기능을 제공하며
+메모리를 자동으로 해제해줍니다.
 
-반드시 처음에 초기화해야 하며(다른 변수를 가리키게 함)
-그 이후는 자신이 가리키는 변수를 바꿀 수 없다.
+2. 캡슐화
+나중에 클래스에서 배우겠지만 캡슐화를 시켜 오류를 수정하는 방법이 있습니다.
 
-NULL값으로 레퍼런스를 초기화할 수 없다.
+3. 스마트 포인터를 사용
+네 사실 이것이 이번 강의 주제입니다.
+스마트 포인터를 거치면 기존의 타언어(C#, Java)처럼 메모리 해제라는 짐을 덜어줍니다.
 
-레퍼런스가 어떤 변수에 새로운 이름을 부여한다고 생각하면 된다.
+## 스마트 포인터
+이 스마트 포인터는 <memory>헤더에 정의되어 있습니다.
 
+스마트 포인터를 왜 쓰는가?
+
+- error handling path가 여럿이라도 자원 관리가 편합니다.
+- 자원을 해제하는 주체가 명확하지 않을 경우에도 사용이 편리합니다.
+- 여러 custom memory allocator를 이용할 경우에, 객체를 사용하는 주체가 어떤 할당자를 사용하여 해제해야하는지 알 필요가 없습니다.
+
+#### auto_ptr
+기존의 포인터가 있지만 C++03부터 auto_ptr이라는 스마트 포인터가 등장했습니다.
+
+하지만 C++14부터 3가지의 타입이 추가되었고, 이제는 auto_ptr은 거의 사용하지 않습니다.
+
+## shared_ptr
 ```C++
-#include <cstdio>
-
-int main()
-{   
-    int a = 1;
-    int &b = a;
-
-    printf("%d %d\n", a, b); // 1 1
-    printf("%p %p\n", &a, &b); // 006AD1F8 006AD1F8
-
-    int c(3);
-    &b = c; // Error
-    int &d = '\0' // Error
-
-    return 0;
-}
-```
-위에선 a라는 변수에 b이라는 새로운 이름을 부여한 것을 볼 수 있다.
-
-
-### 레퍼런스와 포인터의 차이점
-
-레퍼런스는 반드시 처음에 초기화해야 하며, 다시는 가리키는 주소를 못 바꾸고, 배열을 만들 수 없다.
-
-포인터는 값 자체에 접근하려면 *를 붙여야 하지만 레퍼런스는 그러지 않아도 된다.
-
-
-
-아래 코드를 보면서 C언어의 포인터보다 레퍼런스를 사용하면 가독성이 높아지는 것을 알 수 있습니다.
-```C
-#include <stdio.h>
-
-void swap(int *p, int *q)
-{
-    int temp;
-    temp = *p;
-    *p = *q;
-    *q = temp;
-}
-
-int main()
-{
-    int x = 1, y = 2;
-
-    swap(&x, &y);
-    printf("%d %d\n",x, y);
-
-    return 0;
-}
+shared_ptr<Type> mySmartPtr (new Type);
 ```
 
+선언 방식은 위와 같습니다. 
+
+shared_ptr을 사용하기 위해서는 참조 카운트의 개념을 알아야 합니다. 
+
+참조 카운트는 해당 메모리를 참조하는 포인터가 몇개인지 나타내는 값입니다. 
+
+shared_ptr로 선언된 포인터가 가리키는 메모리 공간은 참조 카운트가 0이 되는 순간 메모리를 해제하는 것입니다.
 ```C++
-#include <cstdio>
-
-void swap(int &p, int &q)
-{
-    int temp;
-    temp = p;
-    p = q;
-    q = temp;
-}
-
+#include <iostream>
+#include <memory>
+using namespace std;
+ 
 int main()
 {
-    int x(1), y(2);
-
-    swap(x, y);
-    printf("%d %d\n",x, y);
-
+    shared_ptr<int> s_ptr(new int);         // 참조 카운트 1
+    *s_ptr = 10;
+    cout << "참조 카운트 1" << endl;
+    cout << *s_ptr << endl;
+ 
+    shared_ptr<int> temp_1 = s_ptr;              // 참조 카운트 2
+    *temp_1 += 1;                            // 11로 증가
+ 
+    cout << "참조 카운트 2" << endl;
+    cout << *s_ptr << endl;                 // 증가된 값인 11 출력
+    cout << *temp_1 << endl;
+ 
+    shared_ptr<int> temp_2 = temp_1;              // 참조 카운트 3
+    cout << "참조 카운트 3" << endl;
+    *temp_2 += 1;
+ 
+    cout << *s_ptr << endl;                 // 증가된 값인 12 출력
+    cout << *temp_1 << endl;
+    cout << *temp_2 << endl;
+ 
     return 0;
 }
 ```
-
-
-아래와 같이 400byte 크기의 구조체가 있다고 합시다.
-이때 sum()이라는 함수에서 매개변수로 이 구조체를 호출한다면
-호출할때마다 400byte크기의 값이 복사될 것이다.
-
-이 문제를 해결하기 위해서 포인터를 사용한다면 두번째 예제처럼 코드를 바꿀 수 있습니다.
-이때는 매개변수만 포인터로 바뀌었지만, 매개변수의 주소값만 넘겨주므로 포인터의 크기인 4byte만 사용하게 됩니다.
-
-세번째 코드에서는 레퍼런스를 사용하여 구현한 것입니다.
-레퍼런스 역시 4byte를 사용하지만, 포인터보다 가독성이 더 높은 것을 알 수 있습니다.
-
-```C
-#include <stdio.h>
-
-typedef struct arr100
-{
-    int arr[100];
-}Arr100;
-
-int sum(Arr100 temp)
-{
-    int sum = 0;
-    for (int i = 0; i < 100; i++)
-    {
-        sum += temp.arr[i];
-    }
-
-    return sum;
-}
-
-int main()
-{
-    Arr A;
-    int Sum = sum(A);
-
-    return 0;
-}
-```
-
-
-```C
-#include <stdio.h>
-
-typedef struct arr100
-{
-    int arr[100];
-}Arr100;
-
-int sum(Arr100 *temp)
-{
-    int sum = 0;
-    for (int i = 0; i < 100; i++)
-    {
-        sum += temp -> arr[i];
-    }
-
-    return sum;
-}
-
-int main()
-{
-    Arr A;
-    int Sum = sum(&A);
-
-    return 0;
-}
-```
-
-```C++
-#include <cstdio>
-
-typedef struct arr100
-{
-    int arr[100];
-}Arr100;
-
-int sum(Arr100 &temp)
-{
-    int sum = 0;
-    for (int i = 0; i < 100; i++)
-    {
-        sum += temp.arr[i];
-    }
-
-    return sum;
-}
-
-int main()
-{
-    Arr A;
-    int Sum = sum(A);
-
-    return 0;
-}
-```
-
-
-
-### 예상해보기
-아래 코드의 결과를 예상해봅시다.
-```C++
-#include <cstdio>
-
-int main()
-{
-    int n = 1;
-    int &m = n;
-
-    printf("%d %d\n", n, m);
-
-    n = 7;
-    printf("%d %d\n", n, m);
-
-    m = 9;
-    printf("%d %d\n", n, m);
-
-    return 0;
-}
-```
+> 참조 카운트 1
+> 10
+> 참조 카운트 2
+> 11
+> 11
+> 참조 카운트 3
+> 12
+> 12
+> 12

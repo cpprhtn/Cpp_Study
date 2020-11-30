@@ -1,230 +1,120 @@
-# class
+# string
 반갑습니다. Cpprhtn입니다.
 
-이번에는 class에 대해 알아보겠습니다.
+이번에는 string에 대해 알아보겠습니다.
 
-0강에서 잠시 언급은 했으나 이제부터 조금더 자세히 알아봅시다.
+string 자료형역시 C++로 넘어오면서 만들어진 자료형 중에 하나입니다.
 
-구조체를 만들듯이 사용하면 되지만, public, private, friend등의 추가적인 선언이 필요합니다.
+C언어에서 문자열은 char arr[]; 형태였습니다.
 
-여기서 public은 공공의, 즉 외부에서 자유롭게 접근가능함을 의미합니다.
+그러나 C++에서는 cin을 통해 배열을 입력받기 난해하므로 
 
-아래의 코드를 보면서 익혀봅시다.
+string헤더를 통해서 string이라는 type를 만든 것입니다.
 
+우선 string 문자열을 통해 자기소개하는 코드를 짜봅시다.
 ```C++
 #include <iostream>
-using namespace std; 
-
-class New_Class{  
-public:
-    int i;
-    double d;
-};
+#include <string>
 
 int main(){
 
-    New_Class A; //object
-    A.i = 1;
-    A.d = 3.14;
+    std::string str;
+
+    std::cout << "문자열을 입력하세요: ";
+    std::cin >> str;
+    std::cout << "입력한 문자열은 " << str << "입니다." << std::endl;
 
     return 0;
 }
 ```
-구조체와 거의 비슷하다고 볼 수 있습니다.
-여기서 클래스 자료형을 가진 변수를 object라고 부릅니다.
+> 문자열을 입력하세요: cpprhtn
 
+> 입력한 문자열은 cpprhtn입니다.
 
-구조체와 마찬가지로, 같은 클래스를 자료형으로 취하는 서로 다른 오브젝트는 멤버 변수의 값이 독립적으로 존재할 수 있습니다.
+위와같이 출력됨을 볼 수 있습니다.
 
+이번에는 문자열을 합쳐보도록 하겠습니다.
+C에서는 strcat(a, b) 등의 형태로 문자열을 합쳤던 것을 생각하며 아래 코드를 봅시다.
 ```C++
 #include <iostream>
-using namespace std; 
-
-class New_Class{  
-public:
-    int i;
-    double d;
-};
+#include <string>
 
 int main(){
 
-    New_Class A, B; //object
-    A.i = 1;
-    A.d = 3.14;
-    B.i = 2;
-    B.d = 6.28;
+    std::string str1, str2, str3;
 
-    cout << "object A: " << A.n << ", " << A.f << endl;
-    cout << "object B: " << B.n << ", " << B.f << endl;
-    return 0;
-}
-```
-> object A: 1, 3.14
-
-> object B: 2, 6.28
-
-
-이번에는 여러개의 클래스를 만들어봅시다.
-```C++
-#include <iostream>
-using namespace std; 
-
-class F_Class{
-public:
-    int i;
-    double d;
-};
-
-class S_Class{
-public:
-    char c;
-};
-
-int main(){
-
-    F_Class A;
-    S_Class B;
-    A.i = 1;
-    A.d = 3.14;
-    B.c = 'k';
-
-    cout << "object A: " << A.i << ", " << A.d << endl;
-    cout << "object B: " << B.c << endl;
-    return 0;
-}
-```
-> object A: 1, 3.14
-
-> object B: k
-
-
-이제는 중요한 개념중 하나인 멤버 함수에 대해서 알아봅시다.
-멤버 함수는 클래스안에서 함수를 만드는 형태인데, 멤버 변수를 불러오듯이 멤버 함수도 불러오면 됩니다.
-아래의 코드는 두 수의 합을 구하는 멤버 함수를 포함한 것입니다.
-```C++
-#include <iostream>
-using namespace std;
-
-class F_Class{
-public:
-    int x, y;
-    int sum()
-    {
-    return x+y;
-    }
-};
-
-int main(){
-
-    F_Class A, B;
-    A.x = 1;
-    A.y = 2;
-    B.x = 10;
-    B.y = -15;
-
-    int sum_A, sum_B;
-    sum_A = A.sum();
-    sum_B = B.sum();
-
-    cout << "A의 합: " << sum_A << endl;
-    cout << "B의 합: " << sum_B << endl;
+    std::cout << "단어 2개를 입력하세요: ";
+    std::cin >> str1 >> str2;
+    str3 = str1 + str2;
+    std::cout << "합쳐진 단어는 " << str3 << "입니다." << std::endl;
 
     return 0;
 }
 ```
-> A의 합: 3
+> 단어 2개를 입력하세요: cpp rhtn
 
-> B의 합: -5
+> 합쳐진 단어는 cpprhtn입니다.
+
+위처럼 string에서는 + 연산자로 문자열을 합칠 수 있습니다.
 
 
-이번에는 멤버 함수를 더 만들어 보겠습니다.
+또한 아래와 같이 string은 배열처럼 접근할 수도 있습니다.
 ```C++
 #include <iostream>
-using namespace std;
-
-class F_Class{
-public:
-    int x, y;
-    int sum()
-    {
-    return x+y;
-    }
-    void print()
-    {
-        cout << "x: " << x << ", y: " << y << endl;
-    }
-};
+#include <string>
 
 int main(){
 
-    F_Class A, B;
-    A.x = 1;
-    A.y = 2;
-    B.x = 10;
-    B.y = -15;
+    std::string str = "cpprhtn";
 
-    int sum_A, sum_B;
-    sum_A = A.sum();
-    sum_B = B.sum();
-
-    cout << "A의 합: " << sum_A << endl;
-    A.print();
-    cout << "B의 합: " << sum_B << endl;
-    B.print();
+    std::cout << "입력한 문자열은 " << str << "입니다." << std::endl;
+    std::cout << str[0] << std::endl << str[1] << std::endl << str[2];
 
     return 0;
 }
 ```
-> A의 합: 3
-
-> x: 1, y: 2
-
-> B의 합: -5
-
-> x: 10, y: -15
 
 
 
-선언은 클래스 안에 하고, 정의는 역시 가장 바깥쪽 지역에 합니다.
-이때 일반 함수와 다른 점은, 멤버 함수임을 표시하기 위해 함수명 바로 앞에 "클래스명::"을 붙여야 합니다.
+C에서처럼 C++에서도 `getline`을 이용하여 한줄 전체를 입력받을 수 있습니다.
 ```C++
 #include <iostream>
-using namespace std;
-
-class F_Class{
-public:
-    int x, y;
-    int sum();
-    void print();
-};
+#include <string>
 
 int main(){
 
-    F_Class A, B;
-    A.x = 1;
-    A.y = 2;
-    B.x = 10;
-    B.y = -15;
+    std::string str;
 
-    int sum_A, sum_B;
-    sum_A = A.sum();
-    sum_B = B.sum();
+    std::cout << "문자열을 입력하세요: ";
+    std::getline(std::cin, str);
+    std::cout << str << std::endl;
 
-    cout << "A의 합: " << sum_A << endl;
-    A.print();
-    cout << "B의 합: " << sum_B << endl;
-    B.print();
+return 0;
+}
+```
+> 문자열을 입력하세요: I love cpp
+
+> I love cpp
+
+
+마지막으로는 문자열 길이를 확인해보도록 하겠습니다.
+
+```C++
+#include <iostream>
+#include <string>
+
+int main(){
+
+    std::string str;
+
+    std::cout << "문자열을 입력하세요: ";
+    std::getline(cin, str);
+    std::cout << str << std::endl;
+    std::cout << "문자열 길이: " << str.length() << std::endl;
 
     return 0;
 }
-
-int F_Class::sum()
-{
-    return x + y;
-}
-
-void F_Class::print()
-{
-    cout << "x: " << x << ", y: " << y << endl;
-}
 ```
+> 문자열을 입력하세요: I love cpp
+
+> 문자열 길이: 10

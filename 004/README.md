@@ -240,7 +240,7 @@ int main()
     }
     // w_ptr 소멸
 
-    s_ptr.reset(); // s_ptr
+    s_ptr.reset(); // 메모리 해제
  
     return 0;
 }

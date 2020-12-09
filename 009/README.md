@@ -208,11 +208,11 @@ int Dot::getY(){
 <Location.h>
 
 ```Cpp
-#include "Dot.h"
+#include "Dot.h" //Dot.h 파일을 선언
 
 class Location{
 private:
-    Dot Q, R;
+    Dot Q, R; //Dot 클래스 사용
 public:
     void setQ(int, int);
     void setR(int, int);
@@ -228,18 +228,18 @@ public:
 using namespace std;
 
 void Location::setQ(int x1, int y1){
-    A.setX(x1);
-    A.setY(y1);
+    Q.setX(x1);
+    Q.setY(y1);
 }
 
 void Location::setR(int x1, int y1){
-    B.setX(x1);
-    B.setY(y1);
+    R.setX(x1);
+    R.setY(y1);
 }
 
 void Location::print(){
-    cout << "A(" <<A.getX() << ", " <<A.getY() << ")" << endl;
-    cout << "B(" <<B.getX() << ", " <<B.getY() << ")" << endl;
+    cout << "Q(" <<Q.getX() << ", " <<Q.getY() << ")" << endl;
+    cout << "R(" <<R.getX() << ", " <<R.getY() << ")" << endl;
 }
 ```
 

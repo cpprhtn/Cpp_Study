@@ -44,4 +44,81 @@ int main(){
 2. 매개변수 개수는 같지만, 매개변수의 자료형이 다름
 
 
-이를 이용해서 
+이를 이용해서 게임의 아이디, 나이, 혹은 둘 전부를 쓸 수 있도록 함수를 만들어 봅시다.
+
+<Game_Information.h>
+
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+class info{
+public:
+    // set 함수에서 오버로딩 된 것을 볼 수 있다.
+    void set(string);
+    void set(int);
+    void set(string, int);
+
+    void print();
+private:
+    int age;
+    string ID;
+};
+```
+
+<Game_Information.cpp>
+
+```cpp
+#include "Game_Information.h"
+
+void info::set(int n){
+    age = n;
+}
+
+void info::set(string name){
+    ID = name;
+}
+
+void info::set(string name, int n){
+    age = n;
+    ID = name;
+}
+
+void info::print(){
+    cout << "아이디: " << ID << ", 나이: " << age << endl;
+}
+```
+
+<main.cpp>
+
+```cpp
+#include <iostream>
+#include "cat.h"
+using namespace std;
+
+int main(){
+
+    cout << "LOL" << endl;
+
+    info A;
+    A.set(20, "Hide on bush");
+    A.print();
+
+    A.set(17);
+    A.print();
+
+    A.set("SKTT1 Faker");
+    A.print();
+
+    return 0;
+}
+```
+> LOL
+
+> 아이디: Hide on bush, 나이: 20
+
+> 아이디: Hide on bush, 나이: 17
+
+> 아이디: SKTT1 Faker, 나이: 17
+

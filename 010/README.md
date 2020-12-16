@@ -94,7 +94,7 @@ void info::print(){
 
 ```cpp
 #include <iostream>
-#include "cat.h"
+#include "Game_Information.h"
 using namespace std;
 
 int main(){
@@ -102,7 +102,7 @@ int main(){
     cout << "LOL" << endl;
 
     info A;
-    A.set(20, "Hide on bush");
+    A.set("Hide on bush", 20);
     A.print();
 
     A.set(17);

@@ -19,5 +19,22 @@ int main(){
     A.set("SKTT1 Faker");
     A.print();
 
-    return 0;
+
+    /*
+    생성자 오버로딩
+    */
+    
+    cout << "Users Data" << endl;
+
+    Users A();
+    A.print();
+
+    Users B(2012);
+    B.print();
+
+    Users C("이준원");
+    C.print();
+
+    Users D("이준원",2015);
+    D.print();
 }

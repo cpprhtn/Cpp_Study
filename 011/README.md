@@ -15,9 +15,9 @@ Constructor는 생성자를 말합니다.
 2. public 클래스에서 선언
 3. 결과형 리턴값을가지지 않음
 
-### 기본 생성자
+## 기본 생성자 (Default constructor)
 
-우선은 기본 생성자(default constructor)에 대해 먼저 알아봅시다.
+우선은 기본 생성자에 대해 먼저 알아봅시다.
 
 기본 생성자는 매개변수가 없는 생성자입니다.
 
@@ -124,3 +124,79 @@ info::info():age(0),name(""){
 ```
 
 위처럼 정의를 한다면 { } 안에 정의할 필요없이 바로 각 멤버 변수에 초기값을 할당할 수 있습니다.
+
+
+## 생성자 오버로딩
+
+바로 이전강의에서 오버로딩을 했었습니다.
+
+이전 강의에서는 따로 선언을 한 다음, 클래스의 멤버 함수를 통해 매개변수의 값을 지정해주어야 했습니다.
+
+```cpp
+info A;
+A.set("Hide on bush", 20);
+```
+
+우리는 생성자 오버로딩을 통해서 간단하게 선언할 수 있도록 해봅시다.
+
+C++에서 추가된 선언 방식인 괄호를 사용할 수 있도록 만들 것입니다.
+
+```cpp
+int i(10);
+double j(2.72);
+```
+
+Game_Information에서 Users 클래스로 만들것입니다.
+
+years는 계정 생성년도, name는 사용자명을 저장하는 변수가 되겠습니다.
+
+<Game_Information.h>
+
+```cpp
+// 생성자 오버로딩
+class Users{
+public:
+    Users();
+    Users(string);
+    Users(int);
+    Users(string, int);
+
+    void print();
+
+private:
+    int years;
+    string name;
+};
+```
+
+헤더파일의 Users 클래스를 보면 생성자가 오버로딩 되어있습니다.
+
+Users라는 동일한 변수가 4개 선언되어있는걸 볼 수 있습니다.
+
+<Game_Information.cpp>
+
+```cpp
+// 생성자 오버로딩
+Users::Users():name("비공개"),years(2020){
+
+}
+
+Users::Users(string names):name(names),years(2020){
+
+}
+
+Users::Users(int n):name("비공개"),years(n){
+
+}
+
+Users::Users(string names, int n):name(names),years(n){
+
+}
+
+void Users::print(){
+    cout << "사용자명: " << name << ", 생성년도: " << years << endl;
+}
+```
+
+위의 코드를 보면 오버로딩된 생성자에 대해서 각각 초기화를 해주는 것을 볼 수 있습니다.
+

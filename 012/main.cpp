@@ -14,5 +14,9 @@ int main(){
     Location copy_dot(Two_dot);
     copy_dot.print();
 
+    cout << "복사 생성자를 통한 복사 2" << endl;
+    Location copy_dot2 = Two_dot;
+    copy_dot2.print(); 
+
     return 0;
 }

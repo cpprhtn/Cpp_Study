@@ -47,3 +47,52 @@ clac_class B(A);
 
 훨신 가독성이 뛰어나진 것을 느낄 수 있습니다.
 
+이를 한번 적용해봅시다.
+
+<main.cpp>
+
+```cpp
+int main(){
+
+    cout << "9강에서 사용한 Location class" << endl;
+    Location Two_dot;
+    Two_dot.setQ(-1, 2);
+    Two_dot.setR(-5, -5);
+    Two_dot.print();
+
+    cout << "복사 생성자를 통한 복사" << endl;
+    Location copy_dot(Two_dot);
+    copy_dot.print();
+
+    return 0;
+}
+```
+
+> 9강에서 사용한 Location class
+
+> Q(-1, 2)
+
+> R(-5, -5)
+
+> 복사 생성자를 통한 복사
+
+> Q(-1, 2)
+
+> R(-5, -5)
+
+
+위 코드에서 아래와 같은 부분을 볼 수 있습니다.
+
+```cpp
+cout << "복사 생성자를 통한 복사" << endl;
+Location copy_dot(Two_dot);
+copy_dot.print();
+```
+
+Two_dot라는 클래스 변수를 그대로 복사하여 copy_dot라는 클래스 변수를 생성했습니다.
+
+이런식으로 복사 생성자를 사용할 수 있습니다.
+
+
+
+## 복사 대입 연산자 (Copy assignment operator)

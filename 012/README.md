@@ -17,7 +17,9 @@
 
 우선 첫번째 방법인 복사 생성자입니다.
 
-복사 생성자는 일반 생성자와 비슷하나, 안의 매개변수 리스트가 자신의 자료형 오브젝트 하나가 들어갑니다.
+복사 생성자는 선언과 동시에 대입 연산을 할때 사용합니다.
+
+일반 생성자와 비슷하나, 안의 매개변수 리스트가 자신의 자료형 오브젝트 하나가 들어갑니다.
 
 ```cpp
 add_class A(1, 2);
@@ -138,7 +140,7 @@ Two_dot라는 클래스 변수를 그대로 복사하여 copy_dot, copy_dot2라�
 
 ```cpp
 // 복사 생성자 
-Users A("Hide on bush", 20);
+Users A("Hide on bush", 26);
 
 Users B1(p1);  // 방법 1
 
@@ -146,9 +148,9 @@ Users B2 = A;  // 방법 2
 
 
 // 복사 대입 연산자
-Users A("Hide on bush", 20);
+Users A("Hide on bush", 26);
 
-Users B(22, "Kong");
+Users B("Cpprhtn", 20);
 
 B = A;
 ```

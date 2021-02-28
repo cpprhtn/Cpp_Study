@@ -129,3 +129,24 @@ Two_dot라는 클래스 변수를 그대로 복사하여 copy_dot, copy_dot2라�
 
 
 ## 복사 대입 연산자 (Copy assignment operator)
+
+생성시기에 대입연산자 '=' 를 이용해서 대입을 하면 복사 생성자가 호출이 되고 
+
+생성후 대입연산자 '=' 를 이용해서 대입을 하게되면 복사 대입연산자가 호출이 됩니다.
+
+```cpp
+// 복사 생성자 
+Users A("Hide on bush", 20);
+
+Users B1(p1);  // 방법 1
+
+Users B2 = A;  // 방법 2
+
+
+// 복사 대입 연산자
+Users A("Hide on bush", 20);
+
+Users B(22, "Kong");
+
+B = A;
+```

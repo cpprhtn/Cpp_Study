@@ -17,3 +17,4 @@ C언어의 기본적인 내용을 안다는 전제하에 강좌글을 쓸 예정
 |010|[overloading](./010/README.md)|오버로딩에 대한 설명|
 |011|[constructor](./011/README.md)|생성자에 대한 설명|
 |012|[constructor2](./012/README.md)|생성자에 대한 설명|
+|013|[destructor](./013/README.md)|소멸자에 대한 설명|

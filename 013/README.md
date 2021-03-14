@@ -19,21 +19,23 @@
 이전에 만들었던 코드에서 한번 사용해보겠습니다.
 
 <Game_information.h>
-```cpp
-class info{
-public:
-    info();
-    void set(string);
-    void set(int);
-    void set(string, int);
 
-    ~info(); // 소멸자
+```cpp
+class Users {
+public:
+    Users();
+    Users(string);
+    Users(int);
+    Users(string, int);
 
     void print();
 
+    // 소멸자
+    ~Users();
+
 private:
-    int age;
-    string ID;
+    int years;
+    string name;
 };
 ```
 
@@ -43,32 +45,64 @@ private:
 ```cpp
 #include "Game_Information.h"
 
-
-info::info(){
-    age = 0;
-    ID = "";
-}
-
-void info::set(int n){
-    age = n;
-}
-
-void info::set(string name){
-    ID = name;
-}
-
-void info::set(string name, int n){
-    age = n;
-    ID = name;
-}
+/* 생략 */
 
 // 소멸자
-void info::~info() { 
+Users::~Users() {
 
-}
-
-void info::print(){
-    cout << "아이디: " << ID << ", 나이: " << age << endl;
 }
 ```
 
+위의 코드처럼 소멸자를 추가할 수 있었습니다.
+
+이번에는 소멸자가 언제 호출되는지를 확인 해보겠습니다.
+
+<Game_information.cpp>
+
+```cpp
+#include "Game_Information.h"
+
+/* 생략 */
+
+// 소멸자
+Users::~Users() {
+    cout << "User명이 \"" << name << "\"인 player가 계정을 탈퇴했습니다." << endl;
+}
+```
+
+<main.cpp>
+
+```cpp
+#include <iostream>
+#include "Game_Information.h"
+using namespace std;
+
+int main() {
+
+	cout << "LOL\n" << endl;
+
+	cout << "Users Data\n" << endl;
+
+	Users A("이준원", 2015);
+	{
+		Users B("Cpprhtn", 2021);
+	}
+
+	cout << "\n프로그램이 종료됩니다.\n" << endl;
+
+}
+```
+
+출력결과
+
+![013-1](https://user-images.githubusercontent.com/63298243/111069136-07651200-850f-11eb-9068-bcd0e926a4aa.PNG)
+
+
+Game_information.cpp파일에서, 소멸자가 호출되면, 게임 계정을 탈퇴했다는 문구가 나오도록 수정해보았습니다.
+
+Users A 스코프 안에 Users B를 생성했습니다.
+그리고 B의 스코프가 끝나므로 B의 소멸자가 먼저 호출되게 됩니다.
+
+A의 스코프는 아직 끝이난게 아니므로, "프로그램이 종료됩니다."라는 문구가 먼저 출력이 되며,
+
+프로그램이 종료되며 A의 소멸자를 호출하게 됨을 알 수 있습니다.
